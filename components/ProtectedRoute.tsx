@@ -12,9 +12,10 @@ export default function ProtectedRoute({ children }: { children: React.ReactNode
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      const DASHBOARD_EMAILS = ["nh44.roadmonitor@gmail.com", "kcadharshini@gmail.com"];
       if (!currentUser) {
         router.push("/login");
-      } else if (currentUser.email !== "nh44.roadmonitor@gmail.com") {
+      } else if (!DASHBOARD_EMAILS.includes(currentUser.email ?? "")) {
         router.push("/waitlist");
       } else {
         setUser(currentUser);
